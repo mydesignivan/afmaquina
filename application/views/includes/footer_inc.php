@@ -1,0 +1,5 @@
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');?>
+<b>AF Maquinas y Herramientas S.R.L.</b> Ej&eacute;rcito de los Andes 460(M5526GVH) Dorrego, Mendoza | info@afmaquinas.com.ar | +54(261) 4316949/4320692
+<p style="margin-top:4px;">Copyright &copy; 2010 - Todos los derechos reservados - <a href="http://www.mydesign.com.ar" target="_blank" class="link-inherit"><b>Dise&ntilde;o web</b></a> <a href="http://www.mydesign.com.ar" target="_blank"><img src="http://www.mydesign.com.ar/images/mydesign_logo.png" alt="www.mydesign.com.ar" width="83" height="9" /></a></p>
+<a href="http://validator.w3.org/check?uri=referer"><img src="images/xhtml-valid.jpg" alt="Valid XHTML 1.0 Strict" width="63" height="13" /></a>&nbsp;&nbsp;
+<a href="http://jigsaw.w3.org/css-validator/validator?uri=http%3A%2F%2F<?=base_url()?>%2Fmydesign%2F&profile=css3&usermedium=all&warning=1"><img src="images/css-valid.jpg" alt="¡CSS Válido!" width="63" height="13" /></a>

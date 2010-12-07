@@ -1,0 +1,231 @@
+/*------------------------------------------------------------------------------
+ - ESTILO GENERAL
+ -----------------------------------------------------------------------------*/
+.trow{
+    float:left;
+    clear: both;
+    width: 100%;
+    margin: 7px 0 7px 0;
+}
+.framethumb{
+    padding: 2px;
+    border: 2px solid #5A5A5C;
+}
+
+/*------------------------------------------------------------------------------
+ - ESTILO PARA TITULOS
+ -----------------------------------------------------------------------------*/
+h1.title{
+    font-size: 200%;
+    font-weight:normal;
+    color: #48507F;
+}
+
+
+/*------------------------------------------------------------------------------
+ - ESTILO PARA MENSAJES DEL VALIDADOR
+ -----------------------------------------------------------------------------*/
+.valid-success{
+    background: transparent url({BASE_URL}images/icon_success.png) no-repeat left !important;
+    width: 16px;
+    height: 16px;
+    padding: 0 0 0 18px !important;
+    color: #264409 !important;
+    border: none !important;
+    font-size: 100% !important;
+    z-index: 100;
+}
+.valid-error{
+    background: #C8E6EE;
+    color: #002B45;
+    border: 2px solid #75BBD2;
+    padding: 3px;
+    margin-top: 5px;
+    font-size: 90%;
+    font-weight: normal;
+    min-width: 180px;
+    max-width: 180px;
+    text-align: left;
+    z-index: 100;
+    display: block;
+}
+.valid-highlight{border-style: dashed !important;}
+.valid-unhighlight{border-style: solid !important;}
+
+/*------------------------------------------------------------------------------
+ - ESTILOS PARA LINK
+ -----------------------------------------------------------------------------*/
+a.link-img{
+    color:#48A5C3 !important;
+}
+a.link-img img{
+    position: relative;
+    top:3px;
+}
+a.link-img:hover{color:#646567 !important;}
+
+.link-inherit, .link-inherit:link, .link-inherit:visited, .link-inherit:hover{
+    color: inherit;
+}
+
+/*------------------------------------------------------------------------------
+ - ESTILOS PARA LABEL
+ -----------------------------------------------------------------------------*/
+.label{
+    display: block;
+    float: left;
+    text-align: right;
+    margin-right: 10px;
+    cursor: pointer;
+    font-weight: normal;
+}
+.label-leyend{
+    font-size: 80% !important;
+    font-weight: normal;
+}
+
+/*------------------------------------------------------------------------------
+ - ESTILOS PARA LISTADOS
+ -----------------------------------------------------------------------------*/
+
+
+/*------------------------------------------------------------------------------
+ - ESTILOS PARA BUTTON
+ -----------------------------------------------------------------------------*/
+button{
+    padding: 2px 10px 2px 10px;
+    border: none;
+    background-color: #062945;
+    color: #fff;
+    font-style: italic;
+    font-size: 90%;
+}
+
+
+/*------------------------------------------------------------------------------
+ - ESTILO QUE ESTAN EN EL "HEADER"
+ -----------------------------------------------------------------------------*/
+.header{
+    background: url(public/images/bg-header.jpg) no-repeat;
+    height: 273px;
+    position: relative;
+}
+    .header .logo{
+        float: left;
+        margin: 26px 0 0 45px;
+    }
+    .header .text{
+        position: absolute;
+        left: 57px;
+        top:111px;
+        width: 334px;
+        height: 100px;
+        font-size: 130%;
+        color: #A1A5BD;
+        /*border: 1px solid red;*/
+    }
+
+/* MENU
+ -----------------------------------------------------------------------------*/
+.header .menu{
+    position: absolute;
+    left: 426px;
+    top: 28px;
+    width: 500px;
+    z-index: 100;
+    /*border: 1px solid red;*/
+}
+    .header .menu li{
+        padding: 0 2px 0 1px;
+        float: left;
+        background: url(public/images/separator-menu.png) no-repeat right top;
+    }
+    .header .menu a{
+        display: block;
+        padding: 2px 13px;
+        height: 22px;
+        color: #FFFFFF;
+        font-size: 120%;
+        text-decoration: none;
+    }
+    .header .menu a.current,
+    .header .menu a:hover{
+        background: url(public/images/bg-menu.jpg) repeat-x;
+    }
+
+/* MENU
+ -----------------------------------------------------------------------------*/
+    .banner{
+        position: absolute;
+        left:439px;
+        top: 65px;
+        width: 450px;
+        height: 184px;
+        overflow: hidden;
+    }
+
+/*------------------------------------------------------------------------------
+ - ESTILO QUE ESTAN EN EL "MAIN CONTAINER"
+ -----------------------------------------------------------------------------*/
+.main-container{
+    background-color: #fff;
+    padding-top: 10px;
+}
+.main-container-bottom{
+    background: url(public/images/container-bottom.png) no-repeat;
+    float: left;
+    clear: left;
+    width: 950px;
+    height: 36px;
+}
+    .main-container .contents{
+        float: left;
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        padding-left: 20px;
+        width: 480px;
+    }
+
+/* SIDEBAR
+ -----------------------------------------------------------------------------*/
+.main-container .sidebar{
+}
+
+/*------------------------------------------------------------------------------
+ - ESTILO QUE ESTAN EN EL "FOOTER"
+ -----------------------------------------------------------------------------*/
+.footer{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 90%;
+    color: #fff;
+}
+.footer a{
+    color: #fff;
+}
+
+    
+/*------------------------------------------------------------------------------
+ - ESTILO PARA LOGIN
+ -----------------------------------------------------------------------------*/
+.contlogin{
+    width: 300px;
+    margin: 0 auto;
+    font-size: 90%;
+}
+    .contlogin fieldset{
+        float: left;
+        width: 300px;
+        height: auto;
+        padding: 5px;
+    }
+        .contlogin fieldset legend{
+            font-size: 100%;
+            margin-left: 10px;
+        }
+    .contlogin input{
+        width: 140px;
+    }
+    .contlogin label{
+        width: 100px;
+    }
+

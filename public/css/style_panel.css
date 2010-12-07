@@ -1,0 +1,142 @@
+/*------------------------------------------------------------------------------
+ - ESTILO PARA FORMULARIO "PRODUCTOS"
+ -----------------------------------------------------------------------------*/
+.form-products {
+}
+.form-products label{
+    width: 130px;
+    font-size: 100%;
+}
+.form-products input{
+    width: 300px;
+}
+.form-products textarea{
+    width: 360px;
+    height: 120px;
+}
+
+/*------------------------------------------------------------------------------
+ - ESTILO PARA LA SECCION PRODUCTOS
+ -----------------------------------------------------------------------------*/
+fieldset{
+    padding: 5px;
+}
+fieldset legend{
+    font-size: 90%;
+}
+fieldset.fieldset-categories{
+    float: left;
+    width: 238px;
+    height: 440px;
+    margin-right: 10px;
+}
+    .fieldset-categories a{font-size: 80%}
+
+fieldset.fieldset-form{
+    position: relative;
+    width: 670px;
+    height: auto;
+    font-size: 90%;
+}
+    fieldset.fieldset-form .cont-products{
+        position: relative;
+        width: 669px;
+        height: auto;
+    }
+    fieldset.fieldset-form .busy{
+        display: block;
+        position: absolute;
+        left:0;top:0;
+        width: 671px;
+        height: 100%;
+        background: transparent url({BASE_URL}images/ajax-loader2.gif) no-repeat center;
+        z-index: 1000;
+    }
+
+
+/*------------------------------------------------------------------------------
+ - ESTILO PARA TREEVIEW
+ -----------------------------------------------------------------------------*/
+.cont-treeview {
+    position: relative;
+    width: 229px;
+    height: 388px;
+    margin: 0 auto 5px auto;
+    padding-right: 4px;
+    overflow: auto;
+    border:1px solid #666;
+    white-space: nowrap;
+}
+
+/*------------------------------------------------------------------------------
+ - ESTILO PARA TABLA "PRODUCTOS"
+ -----------------------------------------------------------------------------*/
+.table-products{
+    clear: both;
+    font-size: 80%;
+}
+.table-products .cell1{
+    width: 8px;
+}
+.table-products .cell2{
+    width: 155px;
+}
+.table-products .cell3{
+    width: 231px;
+}
+.table-products .cell4{
+    width: 38px;
+    text-align: center;
+}
+.table-products .cell5, .table-products .cell6{
+    width: 73px;
+    text-align: center;
+}
+
+/*------------------------------------------------------------------------------
+ - ESTILOS PARA GALERIA IMAGEN
+ -----------------------------------------------------------------------------*/
+fieldset.gallery-panel{
+    float:left;
+    width: 618px;
+    height: 182px;
+    padding-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border:1px solid #666;
+}
+    fieldset.gallery-panel legend{
+        font-size: 100%;
+        padding: 0 2px 0 2px;
+    }
+    fieldset.gallery-panel .cont{
+        float: left;
+        width: 616px;
+        height: 160px;
+        position: relative;
+        overflow: auto;
+        /*border: 1px solid red;*/
+    }
+
+    fieldset.gallery-panel ul{
+        margin:0;
+        padding:0;
+    }
+        fieldset.gallery-panel ul li{
+            list-style-type: none;
+            display: inline;
+            float:left;
+            width: 130px;
+            height: 150px;
+            margin: 0 8px 8px 0;
+            padding:5px;
+            background-color: #EEF3F6;
+            border: 2px solid #A5A5A5;
+            text-align: center;
+        }
+            fieldset.gallery-panel ul li .d1{
+                clear: both;
+                margin-top: 5px;
+            }
+    .gallery-panel-upload{margin-left: 20px;}
+    fieldset.gallery-panel ul li input{ width: 124px;}
