@@ -1,5 +1,5 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /trabajos/afmaquinas.git/public
+    RewriteBase /public
     RewriteRule ^(.*\.(css|js))$ min/index.php?f=$1&debug=0 [L,NC]
 </IfModule>

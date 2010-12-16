@@ -44,6 +44,12 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',	'x+b');
 */
 define('TBL_USERS',   'users');
 define('TBL_SETUP',   'setup');
+define('TBL_CONTENTS',                    'contents');
+define('TBL_GALLERY_PRODUCTS',            'gallery_products');
+define('TBL_CATEGORIES',                  'categories');
+define('TBL_PRODUCTS',                    'products');
+define('TBL_LIST_COUNTRY',                'list_country');
+define('TBL_LIST_STATES',                 'list_states');
 
 /*
 |--------------------------------------------------------------------------
@@ -59,22 +65,19 @@ define('ERR_UPLOAD_FILETYPE', 'El tipo de archivo es incompatible.');
 | EMAIL FORM CONTACTO
 |--------------------------------------------------------------------------
 */
-$msg = '
-    <b>Compa&ntilde;&iacute;a:</b> {company}<br />
-    <b>Nombre:</b> {name}<br />
-    <b>Direcci&oacute;n:</b> {address}<br />
-    <b>Ciudad:</b> {city}<br />
-    <b>C&oacute;digo Postal:</b> {postcode}<br />
-    <b>Pa&iacute;s:</b> {country}<br />
-    <b>Provincia:</b> {state}<br />
-    <b>E-Mail:</b> {email}<br />
-    <b>Telefono:</b> {phone}<br />
-    <b>Fax:</b> {fax}<br />
-    <b>Tema:</b> {theme}
-    <hr color="#666666" />{message}
-';
 define('EMAIL_CONTACT_SUBJECT', 'Formulario de Contacto');
-define('EMAIL_CONTACT_MESSAGE', $msg);
+define('EMAIL_CONTACT_MESSAGE', json_encode(array(
+    '<b>Nombre:</b> {txtName}<br />',
+    '<b>Calle/Avenida:</b> {txtCalle}<br />',
+    '<b>Ciudad:</b> {txtCity}<br />',
+    '<b>Estado:</b> {txtState}<br />',
+    '<b>Codigo Postal:</b> {txtPostCode}<br />',
+    '<b>Pais:</b> {cboCountry}<br />',
+    '<b>Telefono:</b> {txtPhoneCode}-{txtPhoneNum}<br />',
+    '<b>Celular:</b> {txtCelCode}-{txtCelNum}<br />',
+    '<b>Email:</b> {txtEmail}<br />',
+    '<b>Comentario:</b> <br />{txtComment}'
+)));
 
 
 /*
@@ -85,23 +88,14 @@ define('EMAIL_CONTACT_MESSAGE', $msg);
 define('UPLOAD_FILETYPE', 'gif|jpg|png');
 define('UPLOAD_MAXSIZE', 2048); //Expresado en Kylobytes
 
-define('UPLOAD_PATH_PRODUCTS', './uploads/products/');
-define('UPLOAD_PATH_SIDEBAR', './uploads/sidebar/');
-define('UPLOAD_PATH_BANNER', './uploads/banner/');
-define('UPLOAD_PATH_CV', './uploads/cv/');
+define('UPLOAD_PATH_GALLERY', './uploads/productsgallery/');
 
-define('IMAGESIZE_WIDTH_THUMB_PRODUCTS', 141);
-define('IMAGESIZE_HEIGHT_THUMB_PRODUCTS', 108);
-define('IMAGESIZE_WIDTH_FULL_PRODUCTS', 320);
-define('IMAGESIZE_HEIGHT_FULL_PRODUCTS', 260);
+define('IMAGESIZE_WIDTH_THUMB_GALLERY', 150);
+define('IMAGESIZE_HEIGHT_THUMB_GALLERY', 110);
+define('IMAGESIZE_WIDTH_FULL_GALLERY', 320);
+define('IMAGESIZE_HEIGHT_FULL_GALLERY', 220);
 
-define('IMAGESIZE_WIDTH_THUMB_SIDEBAR', 150);
-define('IMAGESIZE_HEIGHT_THUMB_SIDEBAR', 100);
-define('IMAGESIZE_WIDTH_FULL_SIDEBAR', 320);
-define('IMAGESIZE_HEIGHT_FULL_SIDEBAR', 260);
-
-define('IMAGESIZE_WIDTH_THUMB_BANNER', 234);
-define('IMAGESIZE_HEIGHT_THUMB_BANNER', 175);
+//100x75
 
 
 /*
@@ -109,9 +103,13 @@ define('IMAGESIZE_HEIGHT_THUMB_BANNER', 175);
 | TITULOS DE CADA SECCION
 |--------------------------------------------------------------------------
 */
-define('TITLE_GLOBAL', 'AF Maquinas y Herramientas S.R.L.'); // Titulo para todas las secciones
-define('TITLE_INDEX', '');
-
+define('TITLE_GLOBAL', 'AF Maquinas y Herramientas S.R.L.');
+define('TITLE_INDEX', 'AF Maquinas y Herramientas S.R.L.');
+define('TITLE_NOSOTROS', 'AF Maquinas y Herramientas S.R.L. - Nosotros');
+define('TITLE_PRODUCTOS', 'AF Maquinas y Herramientas S.R.L. - Productos');
+define('TITLE_CATALOGO', 'AF Maquinas y Herramientas S.R.L. - Catálogo');
+define('TITLE_VIDEOS', 'AF Maquinas y Herramientas S.R.L. - Videos');
+define('TITLE_CONTACTO', 'AF Maquinas y Herramientas S.R.L. - Contacto');
 
 
 /*
@@ -121,9 +119,19 @@ define('TITLE_INDEX', '');
 */
 define('META_KEYWORDS_GLOBAL', '');
 define('META_KEYWORDS_INDEX', '');
+define('META_KEYWORDS_NOSOTROS', '');
+define('META_KEYWORDS_PRODUCTOS', '');
+define('META_KEYWORDS_CATALOGO', '');
+define('META_KEYWORDS_VIDEOS', '');
+define('META_KEYWORDS_CONTACTO', '');
 
 define('META_DESCRIPTION_GLOBAL', '');
 define('META_DESCRIPTION_INDEX', '');
+define('META_DESCRIPTION_NOSOTROS', '');
+define('META_DESCRIPTION_PRODUCTOS', '');
+define('META_DESCRIPTION_CATALOGO', '');
+define('META_DESCRIPTION_VIDEOS', '');
+define('META_DESCRIPTION_CONTACTO', '');
 
 /*
 |--------------------------------------------------------------------------

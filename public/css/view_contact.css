@@ -1,0 +1,21 @@
+.form-contact{
+    margin-top: 20px;
+    width: 424px;
+}
+    .form-contact .label{
+        width: 110px;
+    }
+    .form-contact input, .form-contact select{
+        width: 300px;
+    }
+    .form-contact textarea{
+        width: 290px;
+        height: 90px;
+    }
+    .form-contact .input-code{
+        width: 50px;
+        text-align: center;
+    }
+    .form-contact .input-num{
+        width: 244px;
+    }

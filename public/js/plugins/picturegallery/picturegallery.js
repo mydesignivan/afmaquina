@@ -184,15 +184,15 @@ var PictureGallery = new (function(){
             _inputitle.val('');
 
             $(params.sel_input).val('');
-            $(params.sel_button)[0].disabled=false;
             $(params.sel_ajaxloader).hide();
             params.callback();
            
         }else {
             var d=$(params.sel_msgerror);
-            if( d.length>0 ) d.html(data['error'][0]['message']);
+            if( d.length>0 ) d.html(data['error'][0]['message']).show();
             else alert(data['error'][0]['message']);
         }
+        $(params.sel_button)[0].disabled=false;
 
         return false;
     };

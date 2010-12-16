@@ -24,7 +24,7 @@ function ShowHide(sel){
     else div.stop().slideUp('slow');
 }
 
-function get_url(url){return baseURI+url+url_suffix}
+function get_url(url){return './'+url+$('#ci_url_suffix').val()}
 
 function clear_input(e, isPass){
     if (!e) e = window.event;

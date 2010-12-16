@@ -437,8 +437,8 @@ legend      { font-weight: bold; font-size:1.2em; }
 input[type=text], input[type=password],
 input.text, input.title, 
 textarea, select { 
-  background-color:#fff; 
-  border:1px solid #bbb; 
+  background-color:#A1A5BE;
+  border:1px solid #48507F; 
 }
 /*input[type=text]:focus, input[type=password]:focus,
 input.text:focus, input.title:focus, 

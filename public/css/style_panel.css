@@ -1,8 +1,27 @@
+.header-panel{
+    background: url(public/images/bg-header-panel.jpg) no-repeat;
+    height: 92px;
+    position: relative;
+}
+    .header-panel .logo{
+        position: absolute;
+        left:20px;
+        top:27px;
+    }
+    .header-menu-panel{
+        position: relative;
+        float:right;
+        left: inherit; top: inherit;
+        width: 393px;
+        margin-top: 62px !important;
+        border-top: 2px solid #0D0D0D;
+    }
+.main-container .contents{
+    width: 912px !important;
+}
 /*------------------------------------------------------------------------------
  - ESTILO PARA FORMULARIO "PRODUCTOS"
  -----------------------------------------------------------------------------*/
-.form-products {
-}
 .form-products label{
     width: 130px;
     font-size: 100%;
@@ -34,22 +53,22 @@ fieldset.fieldset-categories{
 
 fieldset.fieldset-form{
     position: relative;
-    width: 670px;
+    width: 639px;
     height: auto;
     font-size: 90%;
 }
     fieldset.fieldset-form .cont-products{
         position: relative;
-        width: 669px;
+        width: 639px;
         height: auto;
     }
     fieldset.fieldset-form .busy{
         display: block;
         position: absolute;
         left:0;top:0;
-        width: 671px;
+        width: 649px;
         height: 100%;
-        background: transparent url({BASE_URL}images/ajax-loader2.gif) no-repeat center;
+        background: transparent url(public/images/ajax-loader2.gif) no-repeat center;
         z-index: 1000;
     }
 
@@ -73,16 +92,16 @@ fieldset.fieldset-form{
  -----------------------------------------------------------------------------*/
 .table-products{
     clear: both;
-    font-size: 80%;
+    font-size: 100%;
 }
 .table-products .cell1{
     width: 8px;
 }
 .table-products .cell2{
-    width: 155px;
+    width: 75px;
 }
 .table-products .cell3{
-    width: 231px;
+    width: 251px;
 }
 .table-products .cell4{
     width: 38px;
@@ -90,6 +109,16 @@ fieldset.fieldset-form{
 }
 .table-products .cell5, .table-products .cell6{
     width: 73px;
+    text-align: center;
+}
+
+/*------------------------------------------------------------------------------
+ - ESTILO PARA TABLA "CONTENT"
+ -----------------------------------------------------------------------------*/
+.table-contents .cell1{
+    width: 800px;
+}
+.table-contents .cell2{
     text-align: center;
 }
 
@@ -127,7 +156,7 @@ fieldset.gallery-panel{
             display: inline;
             float:left;
             width: 130px;
-            height: 150px;
+            height: 120px;
             margin: 0 8px 8px 0;
             padding:5px;
             background-color: #EEF3F6;

@@ -40,9 +40,12 @@
 |
 */
 
-$route['default_controller'] = "content";
+$route['default_controller'] = "index";
 $route['scaffolding_trigger'] = "";
 
+$route['nosotros'] = "index/index/nosotros";
+$route['catalogo'] = "index/index/catalogo";
+$route['videos'] = "index/index/videos";
 
 /* End of file routes.php */
 /* Location: ./system/application/config/routes.php */

@@ -218,13 +218,12 @@ class Template {
 		// If none is specified, use the default. 
 		// Set in constructor.
 		$layout = empty($layout) ? $this->layout : $this->ci->config->item('OCU_layout_folder') . $layout;
-		
 		$this->_set_theme('');
 		
 		// Is it in an AJAX call? If so, override the layout
 		if ($this->is_ajax())
 		{
-			$layout = $this->ci->config->item('OCU_ajax_layout');
+			$layout = $this->ci->config->item('OCU_layout_folder') . $this->ci->config->item('OCU_ajax_layout');
 			$this->ci->output->set_header("Cache-Control: no-store, no-cache, must-revalidate");
 			$this->ci->output->set_header("Cache-Control: post-check=0, pre-check=0");
 			$this->ci->output->set_header("Pragma: no-cache"); 

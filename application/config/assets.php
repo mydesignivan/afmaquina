@@ -25,7 +25,7 @@ $config['asset_folder']		= 'public/';
  */
 $config['js_folder']		= 'js';
 $config['css_folder']		= 'css';
-$config['img_folder']		= 'img';
+$config['img_folder']		= 'images';
 
 //---------------------------------------------------------------
 // Base Assets
@@ -33,10 +33,13 @@ $config['img_folder']		= 'img';
 
 
 $config['assets_css_default']	= array(
-    array(true, 'blueprint/screen'),
-    array(true, 'style'),
+    'blueprint/screen',
+    'style'
 );
-$config['assets_js_default']  = array(array(false, 'jquery-1.4.2.min'));
+$config['assets_js_default']  = array(
+    'jquery-1.4.2.min',
+    'helpers/helpers'
+);
 
 
 $config['inline_js_opener'] = '$(document).ready(function(){';
@@ -59,9 +62,9 @@ $config['asset_host'] = '';
  * to determine whether to combine the files or not.
  */
 $config['servers']= array(
-    'dev'	=> 'localhost/trabajos/codeigniter',
+    'dev'	=> 'local.afmaquina',
     'test'	=> '',
-    'prod'	=> ''
+    'prod'	=> 'www.demo.mydesign.com.ar/af'
 );
 
 /**
@@ -73,4 +76,4 @@ $config['servers']= array(
  */
 $config['combine_on_dev']	= true;
 $config['combine_on_test']	= false;
-$config['combine_on_prod']	= false;
+$config['combine_on_prod']	= true;

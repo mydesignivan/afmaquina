@@ -51,17 +51,17 @@ $db['default']['char_set'] = "utf8";
 $db['default']['dbcollat'] = "utf8_general_ci";
 
 /*$db['default']['hostname'] = "localhost";
-$db['default']['username'] = "jk000145_mydesign";
+$db['default']['username'] = "jk000145_mydesig";
 $db['default']['password'] = "Octubre2008";
 $db['default']['database'] = "jk000145_proyects";
 $db['default']['dbdriver'] = "mysql";
-$db['default']['dbprefix'] = "grundfos_";
+$db['default']['dbprefix'] = "af_";
 $db['default']['pconnect'] = FALSE;
 $db['default']['db_debug'] = TRUE;
 $db['default']['cache_on'] = FALSE;
 $db['default']['cachedir'] = "";
 $db['default']['char_set'] = "utf8";
-$db['default']['dbcollat'] = "utf8_general_ci";
+$db['default']['dbcollat'] = "utf8_general_ci";*/
 
 
 

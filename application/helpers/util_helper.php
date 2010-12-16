@@ -101,7 +101,7 @@ function extract_var(&$str, $left, $right, $del=false){
 
     while( ($pos1=strpos($str, $left, $pos2))!== false ){
         if( ($pos2=strpos($str, $right, $pos1))!== false ){
-            $val = substr($str,  $pos1+strlen($left), $pos2-$pos1-strlen($right)+1);
+            $val = trim(substr($str,  $pos1+strlen($left), $pos2-$pos1-strlen($left)));
             $tag = $left . $val . $right;
             $out[] = array(
                 'val' => $val,

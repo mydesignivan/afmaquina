@@ -38,16 +38,8 @@ class Categories_model extends Model {
         $this->db->trans_off();
         $this->db->trans_start(); // INICIO TRANSACCION
         if( !$this->db->insert(TBL_CATEGORIES, $data) ) return $this->_set_error("Error Nº1");
-        else{
-            $id = $this->db->insert_id();
-            if( !$this->_copy_images($json->gallery->images_new, $id) ) return $this->_set_error("Error Nº2");
-        }
         $this->db->trans_complete(); // COMPLETO LA TRANSACCION
          
-        //Borra archivos temporales
-        $this->load->helper('file');
-        delete_files(UPLOAD_PATH_PRODUCTS.".tmp");
-
         return "ok";
     }
 
@@ -62,56 +54,36 @@ class Categories_model extends Model {
             'last_modified'     => strtotime(date('d-m-Y'))
         );
 
-        //print_array($json);
-        //print_array($data, true);
-
+        /*print_array($json);
+        print_array($data, true);*/
 
         $this->db->trans_off();
         $this->db->trans_start(); // INICIO TRANSACCION
         $this->db->where('categories_id', $this->input->post('categories_id'));
         if( !$this->db->update(TBL_CATEGORIES, $data) ) return $this->_set_error("Error Nº1");
-        else{
-            $gallery = $json->gallery;
-
-            if( count($gallery->images_new)>0 ){
-                if( !$this->_copy_images($gallery->images_new, $this->input->post('categories_id')) ) return $this->_set_error("Error Nº2");
-            }
-
-             // Elimina las imagenes quitadas
-             if( count($gallery->images_del)>0 ){
-                foreach( $gallery->images_del as $row ){
-                    if( $this->db->delete(TBL_GALLERY_PRODUCTS, array('image'=>urldecode($row->image_full))) ){
-                        @unlink(UPLOAD_PATH_PRODUCTS . urldecode($row->image_full));
-                        @unlink(UPLOAD_PATH_PRODUCTS . urldecode($row->image_thumb));
-                    }else return $this->_set_error("Error Nº3");
-                }
-             }
-
-            // Reordena los thumbs
-            foreach( $gallery->images_order as $row ){
-                $this->db->where('image', urldecode($row->image_full));
-                $this->db->update(TBL_GALLERY_PRODUCTS, array('order' => $row->order));
-            }
-        }
         $this->db->trans_complete(); // COMPLETO LA TRANSACCION
-
-        //Borra archivos temporales
-        $this->load->helper('file');
-        delete_files(UPLOAD_PATH_PRODUCTS.".tmp");
 
         return "ok";
     }
 
     public function delete($id) {
         $this->load->model('products_panel_model');
-        return $this->_delete(array(array('categories_id'=>$id)));
+        if( !$this->_delete(array(array('categories_id'=>$id))) ){
+            $this->db->trans_rollback();
+            return false;
+        }
+        return true;
     }
 
     public function get_info($id) {
         $row = array();
+        //echo $id."<br>";
         $row = $this->db->get_where(TBL_CATEGORIES, array('categories_id'=>$id))->row_array();
+
+        $this->db->select('thumb, thumb_width, thumb_height');
         $this->db->order_by('order', 'asc');
-        $row['gallery'] = $this->db->get_where(TBL_GALLERY_PRODUCTS, array('categories_id'=>$id))->result_array();
+        $row['bannergallery'] = $this->db->get_where(TBL_PRODUCTS, array('categorie_reference'=>$row['reference']))->result_array();
+
         return $row;
     }
 
@@ -192,18 +164,11 @@ class Categories_model extends Model {
 
             $info = $this->db->get_where(TBL_CATEGORIES, array('categories_id'=>$row['categories_id']))->row_array();
 
+            $this->db->trans_off();
             $this->db->trans_start(); // INICIO TRANSACCION
             if( !$this->products_panel_model->delete($info['reference']) ) return false;
             if( !$this->db->delete(TBL_CATEGORIES, array('categories_id'=>$row['categories_id'])) ) return false;
-            else{
-                $list = $this->db->get_where(TBL_GALLERY_PRODUCTS, array('categories_id'=>$row['categories_id']))->result_array();
-                if( $this->db->delete(TBL_GALLERY_PRODUCTS, array('categories_id'=>$row['categories_id'])) ){
-                    foreach( $list as $row ){
-                        @unlink(UPLOAD_PATH_PRODUCTS . $row['thumb']);
-                        @unlink(UPLOAD_PATH_PRODUCTS . $row['image']);
-                    }
-                }
-            }
+
             $this->db->trans_complete(); // COMPLETO LA TRANSACCION
 
             $this->db->select('categories_id');
@@ -212,31 +177,6 @@ class Categories_model extends Model {
                 if( !$this->_delete($query->result_array()) ) return false;
             }
 
-        }
-
-        return true;
-    }
-
-    private function _copy_images($json, $id){
-        $n=0;
-        foreach( $json as $row ){
-            $n++;
-            $cp1 = @copy(UPLOAD_PATH_PRODUCTS.".tmp/".$row->image_full, UPLOAD_PATH_PRODUCTS . $row->image_full);
-            $cp2 = @copy(UPLOAD_PATH_PRODUCTS.".tmp/".$row->image_thumb, UPLOAD_PATH_PRODUCTS . $row->image_thumb);
-
-            if( $cp1 && $cp2 ){
-                $data = array(
-                    'categories_id' => $id,
-                    'image'         => $row->image_full,
-                    'thumb'         => $row->image_thumb,
-                    'width'         => $row->width,
-                    'height'        => $row->height,
-                    'title'         => $row->title
-                );
-
-                if( !is_numeric($this->input->post('categories_id')) ) $data['order'] = $n;
-                if( !$this->db->insert(TBL_GALLERY_PRODUCTS, $data) ) return false;
-            }else return false;
         }
 
         return true;

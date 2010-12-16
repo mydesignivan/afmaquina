@@ -11,7 +11,8 @@
 |	http://example.com/
 |
 */
-$config['base_url']	= "http://localhost/trabajos/afmaquinas.git/";
+$config['base_url']	= "http://local.afmaquina/";
+//$config['base_url']	= "http://www.demo.mydesign.com.ar/af/";
 
 /*
 |--------------------------------------------------------------------------
@@ -324,22 +325,6 @@ $config['rewrite_short_tags'] = FALSE;
 |
 */
 $config['proxy_ips'] = '';
-
-
-/*
-|--------------------------------------------------------------------------
-| Sufijos para los archivos comprimidos javascript y css
-|--------------------------------------------------------------------------
- */
-$config['sufix_pack_js'] = '';
-$config['sufix_pack_css'] = '';
-
-/*
-|--------------------------------------------------------------------------
-| Define si se van a mostrar los banner
-|--------------------------------------------------------------------------
- */
-$config['banner_visible'] = false;
 
 
 /* End of file config.php */

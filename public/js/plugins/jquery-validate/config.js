@@ -13,6 +13,9 @@ var jQueryValidatorOptDef = {
             element.parent().append(error);
         }
     },
+    submitHandler : function(form){
+        form.submit();
+    },
     errorClass : 'valid-error',
     onfocusout: false
 };

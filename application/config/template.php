@@ -87,7 +87,7 @@ $config['OCU_default_layout'] = "front_view";
 | NOTE: do not include an ending ".php" extension.
 |
 */
-$config['OCU_ajax_layout'] = 'ajax';
+$config['OCU_ajax_layout'] = 'ajax_view';
 
 /*
 |--------------------------------------------------------------------
@@ -163,9 +163,7 @@ $config['OCU_themes'] = array(
 |
 */
 $config['OCU_message_template'] =<<<EOD
-	<div class="notification {type}">
-		<div>{message}</div>
-	</div>
+	<div class="{type}">{message}</div>
 EOD;
 
 /*

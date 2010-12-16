@@ -9,11 +9,17 @@ class Assets {
 	// Javascript variables
 	private $inline_scripts		= array();
 	private $external_scripts 	= array();
-	private $external_scripts_default 	= array();
+	public $external_scripts_default 	= array();
 	
 	// Styles
 	private $styles = array();
-	private $styles_default = array();
+	public $styles_default = array();
+
+	private $assets_css_group = array();
+	private $assets_js_group = array();
+
+	private $tmp_js = array();
+	private $tmp_css = array();
 
 	//---------------------------------------------------------------
 
@@ -37,7 +43,10 @@ class Assets {
 		$this->ci->config->load('assets_css');
 
                 $this->styles_default = $this->ci->config->item('assets_css_default');
-                $this->external_scripts_default = $this->ci->config->item('assets_js_default');		
+                $this->external_scripts_default = $this->ci->config->item('assets_js_default');
+
+                $this->assets_css_group = $this->ci->config->item('assets_css_group');
+                $this->assets_js_group = $this->ci->config->item('assets_js_group');
 
 		// Setup our host
 		$this->host = $this->ci->config->item('asset_host');
@@ -64,7 +73,7 @@ class Assets {
 	 * @return void
 	 */
 	public function add_css($styles=null, $combine=null){
-            $combine = $combine==null ? $this->combine : $combine;
+            $combine = is_null($combine) ? $this->combine : $combine;
 
             if (is_string($styles) && !empty($styles)){
                     $this->styles[] = array($combine, $styles);
@@ -75,9 +84,9 @@ class Assets {
             }
 	}
 
-	public function add_css_group($styles=null, $combine=null){
-            $combine = $combine==null ? $this->combine : $combine;
-            $arr = $this->ci->config->item('assets_css_group');
+	public function add_css_group($styles=null, $combine=null, $get=false){
+            $combine = is_null($combine) ? $this->combine : $combine;
+            $arr = $this->assets_css_group;
             
             if (is_string($styles) && !empty($styles)) $styles = array($styles);
 
@@ -85,10 +94,12 @@ class Assets {
                 if( isset($arr[$style]) ){
                     if( is_array($arr[$style]) ){
                         foreach( $arr[$style] as $val ){
-                            $this->styles[] = array($combine, $val);
+                            if(!$get) $this->styles[] = array($combine, $val);
+                            else $this->tmp_css[] = array($combine, $val);
                         }
                     }elseif( is_string($arr[$style]) && !empty($arr[$style]) ){
-                        $this->styles[] = array($combine, $arr[$style]);
+                        if(!$get) $this->styles[] = array($combine, $arr[$style]);
+                        else $this->tmp_css[] = array($combine, $arr[$style]);
                     }
                 }
             }
@@ -115,8 +126,7 @@ class Assets {
 	 * @param mixed $new_styles. (default: null)
 	 * @return void
 	 */
-	public function css($new_styles=null) 
-	{
+	public function css($new_styles=null) {
             $styles = array();
 
             if (is_array($new_styles)){
@@ -125,23 +135,10 @@ class Assets {
                 $styles = $this->styles;
             }
 
-            $css_folder = $this->ci->config->item('css_folder') . '/';
+            $folder = $this->ci->config->item('css_folder') . '/';
             $path = $this->ci->config->item('asset_folder');
 
-            foreach( array($this->styles_default, $styles) as $styles ){
-                $files = $files_combine = array();
-
-                foreach( $styles as $style ){
-                    if( $style[0]===false ) {
-                        echo '<link rel="stylesheet" type="text/css" href="' . $this->host . $path . $css_folder . $style[1] . '.css" media="screen, projection" />' . "\n";
-                    }
-                    else $files_combine[] = $css_folder.$style[1];
-                }
-                if( count($files_combine)>0 ){
-                    $files_combine = implode('.css,', $files_combine) . '.css';
-                    echo '<link rel="stylesheet" type="text/css" href="' . $this->host . $path . $files_combine . '" />' . "\n";
-                }
-            }
+            $this->_show_tag($this->styles_default, 'css', $path, $folder, true);
 	}
 	
 	//---------------------------------------------------------------
@@ -163,7 +160,7 @@ class Assets {
 	 * @return void
 	 */
 	public function add_js($scripts=null, $combine=null){
-            $combine = $combine==null ? $this->combine : $combine;
+            $combine = is_null($combine) ? $this->combine : $combine;
 
             if (is_string($scripts) && !empty($scripts)){
                     $this->external_scripts[] = array($combine, $scripts);
@@ -174,9 +171,9 @@ class Assets {
             }
 	}
 
-	public function add_js_group($scripts=null, $combine=null){
-            $combine = $combine==null ? $this->combine : $combine;
-            $arr = $this->ci->config->item('assets_js_group');
+	public function add_js_group($scripts=null, $combine=null, $get=false){
+            $combine = is_null($combine) ? $this->combine : $combine;
+            $arr = $this->assets_js_group;
 
             if (is_string($scripts) && !empty($scripts)) $scripts = array($scripts);
 
@@ -186,17 +183,28 @@ class Assets {
                 if( isset($arr[$script]) ){
                     if( is_array($arr[$script]) ){
                         foreach( $arr[$script] as $val ){
-                            $this->external_scripts[] = array($combine, $val);
+                            if( !$get ) $this->external_scripts[] = array($combine, $val);
+                            else $this->tmp_js[] = array($combine, $val);
                         }
                     }elseif( is_string($arr[$script]) && !empty($arr[$script]) ){
-                        $this->external_scripts[] = array($combine, $arr[$script]);
+                        if( !$get ) $this->external_scripts[] = array($combine, $arr[$script]);
+                        else $this->tmp_js[] = array($combine, $arr[$script]);
                     }
                 }
             }
-	}
-	
+	}	
 	//---------------------------------------------------------------
-	
+
+        public function add_js_default($data){
+            $this->external_scripts_default = array_merge($this->external_scripts_default, $data);
+        }
+
+        public function add_css_default($data){
+            $this->styles = array_merge($this->styles, $data);
+        }
+
+
+
 	/**
 	 * add_inline_js function.
 	 *
@@ -253,46 +261,71 @@ class Assets {
                     $js = $this->external_scripts;
 		}
 
-		$this->_external_js($js);
-		$this->_inline_js();
+
+                $folder = $this->ci->config->item('js_folder') . '/';
+                $path = $this->ci->config->item('asset_folder');
+
+                $this->_show_tag($this->external_scripts_default, 'js', $path, $folder, true);
+
+		//$this->_inline_js();
 	}
 	
 	//---------------------------------------------------------------
 	
 	/**
-	 * _external_js function.
+	 * _show_tag function.
 	 *
-	 * This private method does the actual work of generating the
-	 * links to the js files. It is called by the js() method.
-	 * 
-	 * @access private
-	 * @param mixed $js. (default: null)
-	 * @return void
 	 */
-	private function _external_js($js=null) {
-            if (!is_array($js)){
-                return;
-            }
 
-            $js_folder = $this->ci->config->item('js_folder') . '/';
-            $path = $this->ci->config->item('asset_folder');
-
-            foreach( array($this->external_scripts_default, $js) as $js ){
-                $files = $files_combine = array();
-
-                foreach( $js as $val ){
-                    if( $val[0]===false ) {
-                        echo '<script type="text/javascript" src="'. $this->host . $path . $js_folder . $val[1].'.js" ></script>' . "\n";
+        private function _show_tag($arrLinks, $type, $path, $folder, $def){
+            $files = $files_combine = array();
+            eval('$this->tmp_'.$type.'=array();');
+            foreach( $arrLinks as $val ){
+                if( is_array($val) ){
+                    if( $def && count($val)==2 ){
+                        $arr = explode("/", $val[0]);
+                        $val[0] = !is_numeric(array_search("combine", $arr)) ? $this->combine : false;
+                        if( array_search("group", $arr)!==FALSE ) {
+                            eval('$this->add_'.$type.'_group($val[1], $val[0], true);');
+                        }
                     }
-                    else $files_combine[] = $js_folder . $val[1];
+                    $combine = $val[0];
+                    $name = $val[1];
+                }else{
+                    $combine = $this->combine;
+                    $name = $val;
                 }
-                if( count($files_combine)>0 ){
-                    $files_combine = implode('.js,', $files_combine) . '.js';
-                    echo '<script type="text/javascript" src="' . $this->host . $path . $files_combine.'" ></script>' . "\n";
+
+                if( is_string($name) ){
+                    if( !$combine ) {
+                        if( $type=="js" ){
+                            echo '<script type="text/javascript" src="'. $this->host . $path . $folder . $name .'.js" ></script>' . "\n";
+                        }else{
+                            echo '<link rel="stylesheet" type="text/css" href="' . $this->host . $path . $folder . $name . '.css" media="screen, projection" />' . "\n";
+                        }
+                    }
+                    else $files_combine[] = $folder . $name;
                 }
             }
 
-	}
+            if( count($files_combine)>0 ){
+                $files_combine = implode('.'.$type.',', $files_combine) . '.'.$type;
+                if( $type=="js" ){
+                    echo '<script type="text/javascript" src="' . $this->host . $path . $files_combine.'" ></script>' . "\n";
+                }else{
+                    echo '<link rel="stylesheet" type="text/css" href="' . $this->host . $path . $files_combine . '" />' . "\n";
+                }
+            }
+            if( $def ) {
+                if( $type=="js" ){
+                    $this->external_scripts = array_merge($this->tmp_js, $this->external_scripts);
+                    $this->_show_tag($this->external_scripts, $type, $path, $folder, false);
+                }else{
+                    $this->styles = array_merge($this->tmp_css, $this->styles);
+                    $this->_show_tag($this->styles, $type, $path, $folder, false);
+                }
+            }
+        }
 	
 	//---------------------------------------------------------------
 	

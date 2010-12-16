@@ -1,9 +1,6 @@
 <?php
 class MY_Controller extends Controller {
 
-    private $filter;
-    private $ci;
-
     /* CONSTRUCTOR
      **************************************************************************/
     public function MY_Controller(){
@@ -14,28 +11,33 @@ class MY_Controller extends Controller {
         $this->precontroller('auth');
     }
 
+    /* PRIVATE PROPERTIES
+     **************************************************************************/
+    private $filter;
+    private $ci;
+
+    /* PUBLIC PROPERTIES
+     **************************************************************************/
+    public $_data;
+
+
     /* PUBLIC FUNCTIONS
      **************************************************************************/
     public function precontroller($filter){
-        if( $this->_applies($this->filter[$filter]) ){
-            /*if(!$ci->tank_auth->is_logged_in()) {
-                $ci->template->set_message('Su sesión ha caducado.', 'fail');
-                redirect('/');
-            }*/
+        if( $this->_applies($this->filter[$filter]) ){            
+            if( $this->uri->segment(1)!="panel" ) {
+                $this->ci->assets->add_js_default(array('plugins/jquery.cycle.all.min', 'general'));
+            }else{
+                $this->ci->assets->add_css_default(array('style_panel'));
+                
+            }
         }
     }
 
-    public function _render($view='front/content_view', $data=array(), $layout = FALSE){
-        if( is_array($data) ){
-            $this->template->set(array(
-                'tlp_title' => !isset($data['title']) ? TITLE_GLOBAL : $data['title'],
-                'tlp_keywords' => !isset($data['keywords']) ? META_KEYWORDS_GLOBAL : $data['keywords'],
-                'tlp_description' => !isset($data['description']) ? META_DESCRIPTION_GLOBAL : $data['description']
-            ));
-        }elseif( is_bool($data) ) $layout = $data;
-
+    public function _render($view, $data=array(), $layout = FALSE, $cache_me=FALSE){
+        $this->template->set($data);
         $this->template->current_view = $view;
-        $this->template->render($layout);
+        $this->template->render($layout, $cache_me);
     }
 
     public function _post($var = FALSE){
