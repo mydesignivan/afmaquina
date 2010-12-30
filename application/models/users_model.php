@@ -21,6 +21,9 @@ class Users_model extends Model {
         }
         
         $this->db->where(array('username'=>$this->session->userdata('username')));
+        
+        $this->template->refresh_all_cache();
+
         return $this->db->update(TBL_USERS, $data);
      }
 

@@ -6,4 +6,10 @@ $(function(){
             slideExpr: "img"
         });
     }
+
+    a = $('#sidebar-submenu li');
+    $('#sidebar-menu li').each(function(i){
+        a.eq(i).css('height', ($(this).innerHeight()+1) +'px');
+    });
+
 });

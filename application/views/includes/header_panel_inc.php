@@ -5,5 +5,6 @@
     <li><a href="<?=site_url('/panel/myaccount/')?>" <?php if($this->uri->segment(2)=='myaccount') echo 'class="current"'?>>Mi Cuenta</a></li>
     <li><a href="<?=site_url('/panel/products/')?>" <?php if($this->uri->segment(2)=='products') echo 'class="current"'?>>Productos</a></li>
     <li><a href="<?=site_url('/panel/contents/')?>" <?php if($this->uri->segment(2)=='contents') echo 'class="current"'?>>Contenidos</a></li>
+    <li><a href="<?=site_url('/panel/videos/')?>" <?php if($this->uri->segment(2)=='videos') echo 'class="current"'?>>Videos</a></li>
     <li class="outline"><a href="<?=site_url('/panel/index/logout')?>">Salir</a></li>
 </ul>

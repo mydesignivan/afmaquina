@@ -4,7 +4,7 @@
 <ul class="header-menu resetul">
     <li><a href="<?=base_url()?>" <?php if($this->uri->segment(1)=='inicio'||$this->uri->segment(1)=='') echo 'class="current"'?>>Inicio</a></li>
     <li><a href="<?=site_url('/nosotros/')?>" <?php if($this->uri->segment(1)=='nosotros') echo 'class="current"'?>>Nosotros</a></li>
-    <li><a href="<?=site_url('/productos/')?>" <?php if($this->uri->segment(1)=='productos') echo 'class="current"'?>>Productos</a></li>
+    <li><a href="<?=site_url('/productos/' . $content_sidebar['reference'])?>" <?php if($this->uri->segment(1)=='productos') echo 'class="current"'?>>Productos</a></li>
     <li><a href="<?=site_url('/catalogo/')?>" <?php if($this->uri->segment(1)=='catalogo') echo 'class="current"'?>>Cat&aacute;logo</a></li>
     <li><a href="<?=site_url('/videos/')?>" <?php if($this->uri->segment(1)=='videos') echo 'class="current"'?>>Videos</a></li>
     <li class="outline"><a href="<?=site_url('/contacto/')?>" <?php if($this->uri->segment(1)=='contacto') echo 'class="current"'?>>Contacto</a></li>

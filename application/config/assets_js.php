@@ -11,6 +11,7 @@ $config['assets_js_group'] = array(
         'plugins/jquery.fancybox/jquery.easing-1.3.pack',
         'plugins/jquery.fancybox/jquery.fancybox-1.3.4.pack'
      ),
+    'plugins_adgallery' => array('plugins/jquery.ad-gallery.1.2.4/jquery.ad-gallery.pack'),
     'helpers_json' => array('helpers/json/JSONError.min', 'helpers/json/JSON.min')
 );
 ?>

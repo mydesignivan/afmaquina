@@ -40,6 +40,7 @@ class Categories_model extends Model {
         if( !$this->db->insert(TBL_CATEGORIES, $data) ) return $this->_set_error("Error Nº1");
         $this->db->trans_complete(); // COMPLETO LA TRANSACCION
          
+        $this->template->refresh_all_cache();
         return "ok";
     }
 
@@ -63,6 +64,7 @@ class Categories_model extends Model {
         if( !$this->db->update(TBL_CATEGORIES, $data) ) return $this->_set_error("Error Nº1");
         $this->db->trans_complete(); // COMPLETO LA TRANSACCION
 
+        $this->template->refresh_all_cache();
         return "ok";
     }
 
@@ -72,6 +74,7 @@ class Categories_model extends Model {
             $this->db->trans_rollback();
             return false;
         }
+        $this->template->refresh_all_cache();
         return true;
     }
 
@@ -97,7 +100,8 @@ class Categories_model extends Model {
         $initorder = $this->input->post('initorder');
         $rows = json_decode($this->input->post('rows'));
 
-        $res = $this->db->query('SELECT `order` FROM '.TBL_CATEGORIES.' WHERE categories_id='.$initorder)->row_array();
+        $this->db->select('order');
+        $res = $this->db->get_where(TBL_CATEGORIES, array('categories_id' => $initorder))->row_array();
         $order = $res['order'];
 
         //print_array($rows, true);
@@ -108,6 +112,7 @@ class Categories_model extends Model {
             $order++;
         }
 
+        $this->template->refresh_all_cache();
         return true;
     }
 

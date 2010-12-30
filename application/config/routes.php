@@ -47,5 +47,9 @@ $route['nosotros'] = "index/index/nosotros";
 $route['catalogo'] = "index/index/catalogo";
 $route['videos'] = "index/index/videos";
 
+$route['productos/leermas/:any'] = "productos/leermas/$1";
+$route['productos/search'] = "productos/search";
+$route['productos/:any'] = "productos/index/$1";
+
 /* End of file routes.php */
 /* Location: ./system/application/config/routes.php */

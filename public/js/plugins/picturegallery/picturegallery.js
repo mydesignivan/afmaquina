@@ -113,6 +113,13 @@ var PictureGallery = new (function(){
        return data;
    };
 
+   this.reset = function(){
+       array_images_del = new Array();
+       $(params.sel_gallery + ' li').each(function(){
+           $(this).data('au-newimg', false);
+       });
+   };
+
 
    /* PRIVATE PROPERTIES
     **************************************************************************/
@@ -142,56 +149,64 @@ var PictureGallery = new (function(){
             return false;
         }
 
-        if( data['status']=="success" ){
-            $(params.sel_msgerror).hide();
-            var ul = $(params.sel_gallery);
-            var li = ul.find('li:first');
+        if( !data ){
+            $(params.sel_msgerror).html('El archivo no pudo llegar al servidor.').show();
+        }else{
+            if( data['status']=="success" ){
+                $(params.sel_msgerror).hide();
+                var ul = $(params.sel_gallery);
+                var li = ul.find('li:first');
 
-            if( ul.is(':visible') ) li = li.clone();
+                if( ul.is(':visible') ) li = li.clone();
 
-            var output = data['output'][0];
+                var output = data['output'][0];
 
-            li.find('a.jq-image').attr('href', output['href_image_full']).attr('title', _inputitle.val());
-            var img = li.find('img:first');
-                img.attr('src', output['href_image_thumb']);
+                li.find('a.jq-image').attr('href', output['href_image_full']).attr('title', _inputitle.val());
+                var img = li.find('img:first');
+                    img.attr('src', output['href_image_thumb']);
 
-            if( !params.defined_size ){
-                img.attr('width', output['thumb_width']).attr('height', output['thumb_height']);
-            }else{
-                img.attr('width', params.defined_size.width).attr('height', params.defined_size.height);
+                if( !params.defined_size ){
+                    img.attr('width', output['thumb_width']).attr('height', output['thumb_height']);
+                }else{
+                    img.attr('width', params.defined_size.width).attr('height', params.defined_size.height);
+                }
+
+                var audata = {
+                    width           : output['thumb_width'],
+                    height          : output['thumb_height'],
+                    width_complete  : output['thumb_width_complete'],
+                    height_complete : output['thumb_height_complete'],
+                    title           : _inputitle.val()
+                };
+
+                if( !ul.is(':visible') ){
+                    //li.find('a.jq-removeimg').bind('click', _remove_image);
+                    li.data('au-data', audata);
+                    li.data('au-newimg', true);
+                    ul.show();
+                }else{
+                    ul.find('li:last').after('<li>'+li.html()+'</li>');
+                    ul.find('li:last').find('a.jq-removeimg').bind('click', _remove_image);
+                    ul.find('li:last').data('au-data', audata);
+                    ul.find('li:last').data('au-newimg', true);
+                }
+                ul.find('li:last input.pg-title').val(_inputitle.val());
+                _inputitle.val('');
+
+                $(params.sel_input).val('');
+                $(params.sel_button)[0].disabled=false;
+                $(params.sel_ajaxloader).hide();
+                params.callback();
+                var a=$(params.sel_gallery).parent('div');
+                a.scrollTop(a[0].scrollHeight);
+
+            }else {
+                var d=$(params.sel_msgerror);
+                if( d.length>0 ) d.html(data['error'][0]['message']).show();
+                else alert(data['error'][0]['message']);
             }
-
-            var audata = {
-                width           : output['thumb_width'],
-                height          : output['thumb_height'],
-                width_complete  : output['thumb_width_complete'],
-                height_complete : output['thumb_height_complete'],
-                title           : _inputitle.val()
-            };
-
-            if( !ul.is(':visible') ){
-                //li.find('a.jq-removeimg').bind('click', _remove_image);
-                li.data('au-data', audata);
-                li.data('au-newimg', true);
-                ul.show();
-            }else{
-                ul.find('li:last').after('<li>'+li.html()+'</li>');
-                ul.find('li:last').find('a.jq-removeimg').bind('click', _remove_image);
-                ul.find('li:last').data('au-data', audata);
-                ul.find('li:last').data('au-newimg', true);
-            }
-            ul.find('li:last input.pg-title').val(_inputitle.val());
-            _inputitle.val('');
-
-            $(params.sel_input).val('');
-            $(params.sel_ajaxloader).hide();
-            params.callback();
-           
-        }else {
-            var d=$(params.sel_msgerror);
-            if( d.length>0 ) d.html(data['error'][0]['message']).show();
-            else alert(data['error'][0]['message']);
         }
+
         $(params.sel_button)[0].disabled=false;
 
         return false;

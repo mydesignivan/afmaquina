@@ -114,4 +114,52 @@ function extract_var(&$str, $left, $right, $del=false){
     return $out;
 }
 
+function set_message($body, $_config=null){
+    $config = array();
+    $config['nl2br'] = !isset($_config['nl2br']) ? null : $_config['nl2br'];
+    $config['default'] = !isset($_config['default']) ? null : $_config['default'];
+    $config['data'] = !isset($_config['data']) ? null : $_config['data'];
+
+    $out = '';
+    $ci =& get_instance();
+
+    foreach( $body as $line ){
+        if( preg_match("/\{.*\}/", $line)!==FALSE ){
+            $arrFields = extract_var($line, '{', '}');
+            $j=0;
+            foreach( $arrFields as $var ){
+                //echo $var['val'].'<br>';
+
+                if( is_array($config['data']) && isset($config['data'][$var['val']]) ){
+                    $val = $config['data'][$var['val']];
+                }else{
+                    $val = $ci->input->post($var['val']);
+                }
+
+                if( $val!=false ){
+                    $j++;
+                    if( $config['nl2br']!=null ){
+                        if( is_string($config['nl2br']) ) $config['nl2br'] = array($config['nl2br']);
+                        if( array_search($var['val'], $config['nl2br'])!==FALSE ) $val = nl2br($val);
+                    }
+                    $line = str_replace($var['tag'], $val, $line);
+                }else{
+                    if( is_string($config['default']) ) {
+                        $j=1;
+                        $line = str_replace($var['tag'], $config['default'], $line);
+                    }
+                }
+            }
+            if( $j!=0 ) $out.=$line;
+        }
+    }
+    return $out;
+}
+
+function get_object_movie($url, $opt="panel"){
+    if( empty($url) ) return '';
+    require(APPPATH . 'config/config_movie.php');
+    $url.="?fs=1&amp;hl=es_ES&amp;color1=".$config[$opt]['color1']."&amp;color2=".$config[$opt]['color2'];
+    return '<object width="'.$config[$opt]['width'].'" height="'.$config[$opt]['height'].'"><param name="movie" value="'.$url.'"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="'.$url.'" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="'.$config[$opt]['width'].'" height="'.$config[$opt]['height'].'"></embed></object>';
+}
 ?>

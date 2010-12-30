@@ -15,45 +15,54 @@ class Index extends MY_Controller {
      **************************************************************************/
     public function index(){
         $ref = $this->uri->segment(1,'index');
+        $view = 'front/content_view';
+        $data = array();
+
         switch ($ref){
             case 'index': case '':
-                $tlp_title = TITLE_INDEX;
-                $tlp_keywords = META_KEYWORDS_INDEX;
-                $tlp_descriptions = META_DESCRIPTION_INDEX;
+                $data['tlp_title'] = TITLE_INDEX;
+                $data['tlp_keywords'] = META_KEYWORDS_INDEX;
+                $data['tlp_descriptions'] = META_DESCRIPTION_INDEX;
+                $view = "front/home_view";
+                $this->assets->add_css('view_home');
             break;
             case 'nosotros':
-                $tlp_title = TITLE_NOSOTROS;
-                $tlp_keywords = META_KEYWORDS_NOSOTROS;
-                $tlp_descriptions = META_DESCRIPTION_NOSOTROS;
+                $data['tlp_title'] = TITLE_NOSOTROS;
+                $data['tlp_keywords'] = META_KEYWORDS_NOSOTROS;
+                $data['tlp_descriptions'] = META_DESCRIPTION_NOSOTROS;
             break;
             case 'productos':
-                $tlp_title = TITLE_PRODUCTOS;
-                $tlp_keywords = META_KEYWORDS_PRODUCTOS;
-                $tlp_descriptions = META_DESCRIPTION_PRODUCTOS;
+                $data['tlp_title'] = TITLE_PRODUCTOS;
+                $data['tlp_keywords'] = META_KEYWORDS_PRODUCTOS;
+                $data['tlp_descriptions'] = META_DESCRIPTION_PRODUCTOS;
             break;
             case 'catalogo':
-                $tlp_title = TITLE_CATALOGO;
-                $tlp_keywords = META_KEYWORDS_CATALOGO;
-                $tlp_descriptions = META_DESCRIPTION_CATALOGO;
+                $data['tlp_title'] = TITLE_CATALOGO;
+                $data['tlp_keywords'] = META_KEYWORDS_CATALOGO;
+                $data['tlp_descriptions'] = META_DESCRIPTION_CATALOGO;
+                $this->assets->add_css('view_catalog');
             break;
             case 'videos':
-                $tlp_title = TITLE_VIDEOS;
-                $tlp_keywords = META_KEYWORDS_VIDEOS;
-                $tlp_descriptions = META_DESCRIPTION_VIDEOS;
+                $this->load->model('movies_model');
+
+                $data['tlp_title'] = TITLE_VIDEOS;
+                $data['tlp_keywords'] = META_KEYWORDS_VIDEOS;
+                $data['tlp_descriptions'] = META_DESCRIPTION_VIDEOS;
+                $data['list'] = $this->movies_model->get_list();
+                $view = 'front/movies_view';
+                $this->assets->add_css('view_movie');
             break;
             case 'contacto':
-                $tlp_title = TITLE_CONTACTO;
-                $tlp_keywords = META_KEYWORDS_CONTACTO;
-                $tlp_descriptions = META_DESCRIPTION_CONTACTO;
+                $data['tlp_title'] = TITLE_CONTACTO;
+                $data['tlp_keywords'] = META_KEYWORDS_CONTACTO;
+                $data['tlp_descriptions'] = META_DESCRIPTION_CONTACTO;
             break;
         }
 
-        $this->_render('front/content_view', array(
-            'tlp_title' => $tlp_title,
-            'tlp_meta_keywords' => $tlp_keywords,
-            'tlp_meta_descriptions' => $tlp_descriptions,
+        $this->_render($view, array_merge($data, array(
+            'content_sidebar'   => $this->contents_model->get_sidebar(),
             'content' => $this->contents_model->get_content($ref)
-        ));
+        )));
     }
 
     /* AJAX FUNCTIONS

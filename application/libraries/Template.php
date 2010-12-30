@@ -550,14 +550,28 @@ class Template {
 		return $template;
 	}
 
-        public function refresh_cache($view_name){
+        public function refresh_cache($views){
+            if( !is_array($views) ) $views=array($views);
             if (!function_exists('delete_files')) {
                 $this->ci->load->helper('file');
             }
-            $cache_file = $this->cache_path . md5($view_name . $this->ci->uri->uri_string) .'.html';
-            @unlink($cache_file);
+            
+            foreach( $views as $view ){
+                //echo $view . $this->ci->uri->uri_string."<br>";
+                $cache_file = $this->cache_path . md5($view . $this->ci->uri->uri_string) .'.html';
+                @unlink($cache_file);
+            }
         }
 
+        public function refresh_all_cache(){
+            $dir = "./system/cache/";
+            $d = opendir($dir);
+            while( $file = readdir($d) ){
+                if( $file!="." AND $file!=".." AND $file!="index.html" ){
+                    @unlink($dir.$file);
+                }
+            }
+        }
 	
 	//---------------------------------------------------------------
 	
@@ -691,6 +705,7 @@ class Template {
 		{
 			// To discourage conflicts, use the view_name and the current uri
 			// As the cache_id.
+                    //echo $view_name."<br>";
 			$this->cache_id = md5($view_name . $this->ci->uri->uri_string);
 			
 			if ($this->is_cached())

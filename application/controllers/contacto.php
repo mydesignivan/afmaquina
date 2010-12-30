@@ -22,6 +22,7 @@ class Contacto extends MY_Controller {
             'tlp_title'            => TITLE_CONTACTO,
             'tlp_meta_description' => META_DESCRIPTION_CONTACTO,
             'tlp_meta_keywords'    => META_KEYWORDS_CONTACTO,
+            'content_sidebar'   => $this->contents_model->get_sidebar(),
             'content'              => $this->contents_model->get_content('contacto'),
             'listCountry'          => $this->lists_model->get_country(array(''=>'Seleccione un pa&iacute;s'))
         ));

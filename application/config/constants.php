@@ -50,6 +50,7 @@ define('TBL_CATEGORIES',                  'categories');
 define('TBL_PRODUCTS',                    'products');
 define('TBL_LIST_COUNTRY',                'list_country');
 define('TBL_LIST_STATES',                 'list_states');
+define('TBL_MOVIES',                 'movies');
 
 /*
 |--------------------------------------------------------------------------
@@ -139,7 +140,6 @@ define('META_DESCRIPTION_CONTACTO', '');
 |--------------------------------------------------------------------------
 */
 define('LANG', 1);
-
 
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */

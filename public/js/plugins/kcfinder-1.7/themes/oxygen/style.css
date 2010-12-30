@@ -104,14 +104,14 @@ span.brace {
 }
 
 span.current {
-    background-image: url(img/tree/folder_current.png);
+    background-image: url(./public/js/plugins/kcfinder-1.7/themes/oxygen/img/tree/folder_current.png);
     background-color: #5b9bda;
     border-color: #2973bd;
     color: #fff;
 }
 
 span.regular {
-    background-image: url(img/tree/folder.png);
+    background-image: url(./public/js/plugins/kcfinder-1.7/themes/oxygen/img/tree/folder.png);
     background-color: #f8f7f6;
 }
 
@@ -121,15 +121,15 @@ span.regular:hover {
 }
 
 span.opened {
-    background-image: url(img/tree/minus.png);
+    background-image: url(./public/js/plugins/kcfinder-1.7/themes/oxygen/img/tree/minus.png);
 }
 
 span.closed {
-    background-image: url(img/tree/plus.png);
+    background-image: url(./public/js/plugins/kcfinder-1.7/themes/oxygen/img/tree/plus.png);
 }
 
 span.denied {
-    background-image: url(img/tree/denied.png);
+    background-image: url(./public/js/plugins/kcfinder-1.7/themes/oxygen/img/tree/denied.png);
 }
 
 div.file {
@@ -215,23 +215,23 @@ tr.current:hover > td {
 }
 
 #toolbar a[href="kcact:upload"] {
-    background-image: url(img/icons/upload.png);
+    background-image: url(./public/js/plugins/kcfinder-1.7/themes/oxygen/img/icons/upload.png);
 }
 
 #toolbar a[href="kcact:refresh"] {
-    background-image: url(img/icons/refresh.png);
+    background-image: url(./public/js/plugins/kcfinder-1.7/themes/oxygen/img/icons/refresh.png);
 }
 
 #toolbar a[href="kcact:settings"] {
-    background-image: url(img/icons/settings.png);
+    background-image: url(./public/js/plugins/kcfinder-1.7/themes/oxygen/img/icons/settings.png);
 }
 
 #toolbar a[href="kcact:about"] {
-    background-image: url(img/icons/about.png);
+    background-image: url(./public/js/plugins/kcfinder-1.7/themes/oxygen/img/icons/about.png);
 }
 
 #toolbar a[href="kcact:maximize"] {
-    background-image: url(img/icons/maximize.png);
+    background-image: url(./public/js/plugins/kcfinder-1.7/themes/oxygen/img/icons/maximize.png);
 }
 
 .box, #loading {
@@ -244,7 +244,7 @@ tr.current:hover > td {
 }
 
 #loading {
-    background-image: url(img/loading.gif);
+    background-image: url(./public/js/plugins/kcfinder-1.7/themes/oxygen/img/loading.gif);
     font-weight: bold;
     margin-right: 4px;
 }
@@ -282,43 +282,43 @@ tr.current:hover > td {
 }
 
 .menu a[href="kcact:mkdir"] {
-    background-image: url(img/icons/folder-new.png);
+    background-image: url(./public/js/plugins/kcfinder-1.7/themes/oxygen/img/icons/folder-new.png);
 }
 
 .menu a[href="kcact:mvdir"], .menu a[href="kcact:mv"] {
-    background-image: url(img/icons/rename.png);
+    background-image: url(./public/js/plugins/kcfinder-1.7/themes/oxygen/img/icons/rename.png);
 }
 
 .menu a[href="kcact:rmdir"], .menu a[href="kcact:rm"], .menu a[href="kcact:rmcbd"] {
-    background-image: url(img/icons/delete.png);
+    background-image: url(./public/js/plugins/kcfinder-1.7/themes/oxygen/img/icons/delete.png);
 }
 
 .menu a[href="kcact:clpbrdadd"] {
-    background-image: url(img/icons/clipboard-add.png);
+    background-image: url(./public/js/plugins/kcfinder-1.7/themes/oxygen/img/icons/clipboard-add.png);
 }
 
 .menu a[href="kcact:pick"], .menu a[href="kcact:pick_thumb"] {
-    background-image: url(img/icons/select.png);
+    background-image: url(./public/js/plugins/kcfinder-1.7/themes/oxygen/img/icons/select.png);
 }
 
 .menu a[href="kcact:download"] {
-    background-image: url(img/icons/download.png);
+    background-image: url(./public/js/plugins/kcfinder-1.7/themes/oxygen/img/icons/download.png);
 }
 
 .menu a[href="kcact:view"] {
-    background-image: url(img/icons/view.png);
+    background-image: url(./public/js/plugins/kcfinder-1.7/themes/oxygen/img/icons/view.png);
 }
 
 .menu a[href="kcact:cpcbd"] {
-    background-image: url(img/icons/copy.png);
+    background-image: url(./public/js/plugins/kcfinder-1.7/themes/oxygen/img/icons/copy.png);
 }
 
 .menu a[href="kcact:mvcbd"] {
-    background-image: url(img/icons/move.png);
+    background-image: url(./public/js/plugins/kcfinder-1.7/themes/oxygen/img/icons/move.png);
 }
 
 .menu a[href="kcact:clrcbd"] {
-    background-image: url(img/icons/clipboard-clear.png);
+    background-image: url(./public/js/plugins/kcfinder-1.7/themes/oxygen/img/icons/clipboard-clear.png);
 }
 
 a.denied {
@@ -380,7 +380,7 @@ a.denied:hover {
 }
 
 #clipboard div {
-    background: url(img/icons/clipboard.png) no-repeat center center;
+    background: url(./public/js/plugins/kcfinder-1.7/themes/oxygen/img/icons/clipboard.png) no-repeat center center;
     border: 1px solid transparent;
     padding: 1px;
     cursor: pointer;

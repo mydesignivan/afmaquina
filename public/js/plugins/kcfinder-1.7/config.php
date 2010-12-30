@@ -22,7 +22,7 @@ $_CONFIG = array(
 
     'theme' => "oxygen",
 
-    'uploadURL' => "../../../uploads/kcfinder",
+    'uploadURL' => "../../../../uploads/kcfinder",
     'uploadDir' => "",
 
     'dirPerms' => 0755,
@@ -34,6 +34,7 @@ $_CONFIG = array(
         // TinyMCE types
         'file'    =>  "",
         'media'   =>  "swf flv avi mpg mpeg qt mov wmv asf rm",
+        'misc'      => "pdf doc docx xls xlsx",
         'image'   =>  "*img",
     ),
 

@@ -20,7 +20,8 @@ class Index extends MY_Controller {
             $this->_render('panel/login_view', array(
                 'tlp_title' => TITLE_INDEX,
                 'tlp_meta_keywords' => '',
-                'tlp_meta_descriptions' => ''
+                'tlp_meta_descriptions' => '',
+                'content_sidebar'   => $this->contents_model->get_sidebar()
             ));
         }
     }

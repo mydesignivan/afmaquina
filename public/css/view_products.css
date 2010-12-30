@@ -35,3 +35,35 @@
         background: url(public/images/desc-bottom.jpg) no-repeat;
         height: 6px;
     }
+
+.title-product{
+    clear: both;
+    position: relative;
+    width: 321px;
+    height: auto;
+    margin: 10px auto !important;
+}
+    .title-product .top,.title-product .middle,.title-product .bottom{
+        float: left;
+        clear: left;
+        width: 321px;
+    }
+    .title-product .top{
+        background: url(public/images/desc-2-top.jpg) no-repeat top left;
+        height: 10px;
+    }
+    .title-product .middle{
+        background-color: #A9AEC2;
+        width: 284px;
+        height: auto;
+        margin-left: 19px;
+        color: #fff;
+        font-weight: bold;
+        font-size: 90%;
+        font-style: italic;
+        text-align: center;
+    }
+    .title-product .bottom{
+        background: url(public/images/desc-2-bottom.jpg) no-repeat;
+        height: 7px;
+    }

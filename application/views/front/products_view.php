@@ -1,39 +1,21 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');?>
+<h1 class="title"><?=$path_section?></h1>
 
+<?php
+$n=0;
+foreach( $listProducts as $row ){
+$n++;
+$url = site_url('productos/leermas/'.$row['reference']);
+?>
 <div class="product">
-    <img src="public/images/productos/BS-912B.jpg" alt="" width="150" height="" /><br />
-    <div class="desc-top"><a href="">ver m&aacute;s</a></div>
-    <div class="desc-middle">TK36/750,TK40A/750, TK40A/1000, TK40A/1500</div>
+    <a href="<?=$url?>"><img src="<?=UPLOAD_PATH_GALLERY . $row['thumb']?>" alt="<?=$row['thumb']?>" width="<?=$row['thumb_width']?>" height="<?=$row['thumb_height']?>" /></a><br />
+    <div class="desc-top"><a href="<?=$url?>">ver m&aacute;s</a></div>
+    <div class="desc-middle"><?=$row['product_name']?></div>
     <div class="desc-bottom"></div>
 </div>
-<div class="product">
-    <img src="public/images/productos/BS-912B.jpg" alt="" width="150" height="" /><br />
-    <div class="desc-top"><a href="">ver m&aacute;s</a></div>
-    <div class="desc-middle">TK36/750,TK40A/750, TK40A/1000, TK40A/1500</div>
-    <div class="desc-bottom"></div>
-</div>
-<div class="product">
-    <img src="public/images/productos/BS-912B.jpg" alt="" width="150" height="" /><br />
-    <div class="desc-top"><a href="">ver m&aacute;s</a></div>
-    <div class="desc-middle">TK36/750,TK40A/750, TK40A/1000, TK40A/1500</div>
-    <div class="desc-bottom"></div>
-</div>
-<div class="clear"></div>
-<div class="product">
-    <img src="public/images/productos/BS-912B.jpg" alt="" width="150" height="" /><br />
-    <div class="desc-top"><a href="">ver m&aacute;s</a></div>
-    <div class="desc-middle">TK36/750,TK40A/750, TK40A/1000, TK40A/1500</div>
-    <div class="desc-bottom"></div>
-</div>
-<div class="product">
-    <img src="public/images/productos/BS-912B.jpg" alt="" width="150" height="" /><br />
-    <div class="desc-top"><a href="">ver m&aacute;s</a></div>
-    <div class="desc-middle">TK36/750,TK40A/750, TK40A/1000, TK40A/1500</div>
-    <div class="desc-bottom"></div>
-</div>
-<div class="product">
-    <img src="public/images/productos/BS-912B.jpg" alt="" width="150" height="" /><br />
-    <div class="desc-top"><a href="">ver m&aacute;s</a></div>
-    <div class="desc-middle">TK36/750,TK40A/750, TK40A/1000, TK40A/1500</div>
-    <div class="desc-bottom"></div>
-</div>
+<?php 
+    if( $n==3 ) {
+        echo '<div class="clear"></div>';
+        $n=0;
+    }
+}?>

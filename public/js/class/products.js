@@ -264,7 +264,8 @@ Products = new (function(){
         
         _Loader.show();
 
-        var params = _get_params(f);
+        var params = _get_params(f)+'&parent_id='+_parent_id;
+
         var data={gallery : {}};
         data.gallery.images_new = PictureGallery.get_images_new();
         if( $('#products_id').val() ) {

@@ -1,0 +1,48 @@
+.aro{
+    background: url(public/images/gallery-home/circulo-galeria.jpg) no-repeat;
+    width: 433px;
+    height: 273px;
+    margin: 100px 0 100px 0;
+    position: relative;
+}
+    .aro a{
+        position: absolute;
+        display: block;
+    }
+        .aro a.p1{
+            left: 0;
+            top: 20px;
+        }
+        .aro a.p2{
+            left: 120px;
+            top: -18px;
+        }
+        .aro a.p3{
+            left: 235px;
+            top: -18px;
+        }
+        .aro a.p4{
+            left: 350px;
+            top: 24px;
+        }
+        .aro a.p5{
+            left: 370px;
+            top: 140px;
+        }
+        .aro a.p6{
+            left: 310px;
+            top: 196px;
+        }
+        .aro a.p7{
+            left: 170px;
+            top: 206px;
+        }
+        .aro a.p8{
+            left: 50px;
+            top: 186px;
+        }
+        .aro a.p9{
+            left: -32px;
+            top: 116px;
+        }
+

@@ -1,0 +1,13 @@
+.form-contact input, select{
+  background-color:#A1A5BE;
+  border:1px solid #48507F;
+}
+.form-contact .input-num{
+    width: 242px;
+}
+button{
+    height: 30px;
+}
+.title-product .middle{
+    margin: -4px 0 0 9px;
+}

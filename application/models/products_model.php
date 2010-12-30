@@ -11,17 +11,28 @@ class Products_model extends Model {
      **************************************************************************/
     public function get_list_front($ref){
         $output = array();
-
-        $this->db->select('categorie_name, categorie_content, reference, parent_id');
+        
+        $this->db->select('categorie_name, categorie_content, reference, parent_id, level, categories_id');
         $query = $this->db->get_where(TBL_CATEGORIES, array('reference'=>$ref));
         if( $query->num_rows==0 ) return false;
         $output = $query->row_array();
 
+        $prefix = "";
+
+        $sql = TBL_PRODUCTS.'.*,
+            (SELECT thumb FROM '.$prefix.TBL_GALLERY_PRODUCTS.' WHERE '.$prefix.TBL_GALLERY_PRODUCTS.'.products_id='.$prefix.TBL_PRODUCTS.'.products_id ORDER BY `order` asc LIMIT 1) as thumb,
+            (SELECT width FROM '.$prefix.TBL_GALLERY_PRODUCTS.' WHERE '.$prefix.TBL_GALLERY_PRODUCTS.'.products_id='.$prefix.TBL_PRODUCTS.'.products_id ORDER BY `order` asc LIMIT 1) as thumb_width,
+            (SELECT height FROM '.$prefix.TBL_GALLERY_PRODUCTS.' WHERE '.$prefix.TBL_GALLERY_PRODUCTS.'.products_id='.$prefix.TBL_PRODUCTS.'.products_id ORDER BY `order` asc LIMIT 1) as thumb_height
+        ';
+
+        $this->db->select($sql);
         $this->db->order_by('order', 'asc');
         $query = $this->db->get_where(TBL_PRODUCTS, array('categorie_reference'=>$ref));
         $output['listProducts'] = $query->result_array();
-
-        $output['childs'] = $this->_get_childs($output['parent_id']);
+        
+        $output['path_section'] = $this->_get_path_section($ref);
+        $output['path_section'] = array_reverse($output['path_section']['name']);
+        $output['path_section'] = implode(" - ", $output['path_section']);
 
         return $output;
     }
@@ -34,12 +45,21 @@ class Products_model extends Model {
         $query = $this->db->get();
         if( $query->num_rows==0 ) return false;
         $result = $query->row_array();
+        //print_array($result, true);
 
-        $result['path_section'] = $this->_get_path_section($result['categorie_reference']);
-        $result['path_section'] = array_reverse($result['path_section']);
-        $result['path_section'] = implode(" &gt; ", $result['path_section'])." &gt; ".$result['product_name'];
+        $arr_path = $this->_get_path_section($result['categorie_reference']);
+        $result['path_section'] = array_reverse($arr_path['name']);
+        $result['path_section'] = implode(" - ", $result['path_section']);
 
-        $result['childs'] = $this->_get_childs($result['categorie_parent_id']);
+        $this->db->order_by('order', 'asc');
+        $query = $this->db->get_where(TBL_GALLERY_PRODUCTS, array('products_id'=>$result['products_id']));
+        if( $query->num_rows>0 ) $result['gallery'] = $query->result_array();
+
+        $result['segment1'] = @$arr_path['reference'][1];
+        $result['segment2'] = $arr_path['reference'][0];
+
+        //print_array($result, true);
+        
         return $result;
     }
 
@@ -65,31 +85,42 @@ class Products_model extends Model {
 
     /* PRIVATE FUNCTIONS
      **************************************************************************/
-    // Extrae los contenidos hijos
-    private function _get_childs($id){
-        $this->db->order_by('order', 'asc');
-        $this->db->distinct();
-        $this->db->select(TBL_CATEGORIES.'.*', true);
-        $this->db->from(TBL_CATEGORIES);
-        $this->db->join(TBL_PRODUCTS, TBL_CATEGORIES.'.reference = '.TBL_PRODUCTS.'.categorie_reference');
-        $this->db->where('parent_id', $id);
-        $query = $this->db->get();
-        if( $query->num_rows>0 ) return $query->result_array();
-        return false;
-    }
-
-    private function _get_path_section($ref, &$path=array()){
+    private function _get_path_section($ref, &$arr_name=array(), &$arr_reference=array()){
+        $this->db->select('reference, categorie_name, parent_id');
         $result = $this->db->get_where(TBL_CATEGORIES, array('reference'=>$ref))->row_array();
 
-        $path[] = $result['categorie_name'];
+        $arr_name[] = $result['categorie_name'];
+        $arr_reference[] = $result['reference'];
 
         $query = $this->db->get_where(TBL_CATEGORIES, array('categories_id'=>$result['parent_id']));
         if( $query->num_rows>0 ) {
             $result = $query->row_array();
-            $this->_get_path_section($result['reference'], $path);
+            $this->_get_path_section($result['reference'], $arr_name, $arr_reference);
         }
 
-        return $path;
+        return array(
+            'name' => $arr_name,
+            'reference' => $arr_reference
+        );
     }
+
+    private function _get_first_reference(){
+        $this->db->select('reference, categories_id');
+        $this->db->order_by('order', 'asc');
+        $this->db->limit(1);
+        $res = $this->db->get_where(TBL_CATEGORIES, array('level'=>0))->row_array();
+
+        $this->db->select('reference');
+        $this->db->order_by('order', 'asc');
+        $this->db->limit(1);
+        $query = $this->db->get_where(TBL_CATEGORIES, array('parent_id'=>$res['categories_id']));
+        if( $query->num_rows>0 ){
+            $row = $query->row_array();
+            return $row['reference'];
+        }else return $res['reference'];
+
+    }
+
+
 
 }

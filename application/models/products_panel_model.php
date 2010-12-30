@@ -12,8 +12,9 @@ class Products_panel_model extends Model {
     public function get_list($categories_id){
         $this->db->select('reference');
         $row = $this->db->get_where(TBL_CATEGORIES, array('categories_id'=>$categories_id))->row_array();
-
-        $this->db->select(TBL_PRODUCTS.'.*, (SELECT thumb FROM '.TBL_GALLERY_PRODUCTS.' WHERE '.TBL_GALLERY_PRODUCTS.'.products_id='.TBL_PRODUCTS.'.products_id ORDER BY `order` LIMIT 1) as filename');
+        
+        $prefix="af_";
+        $this->db->select(TBL_PRODUCTS.'.*, (SELECT thumb FROM '.$prefix.TBL_GALLERY_PRODUCTS.' WHERE '.$prefix.TBL_GALLERY_PRODUCTS.'.products_id='.$prefix.TBL_PRODUCTS.'.products_id ORDER BY `order` LIMIT 1) as filename');
         $this->db->order_by('order', 'asc');
         $query = $this->db->get_where(TBL_PRODUCTS, array('categorie_reference'=>$row['reference']));
         return $query->result_array();
@@ -56,6 +57,8 @@ class Products_panel_model extends Model {
 
          $this->load->helper('file');
          delete_files(UPLOAD_PATH_GALLERY.".tmp");
+         
+         $this->template->refresh_all_cache();
 
          return 'ok';
     }
@@ -107,6 +110,7 @@ class Products_panel_model extends Model {
          $this->load->helper('file');
          delete_files(UPLOAD_PATH_GALLERY.".tmp");
 
+         $this->template->refresh_all_cache();
          return 'ok';
     }
 
@@ -142,6 +146,7 @@ class Products_panel_model extends Model {
             if( is_array($id) ) $this->db->trans_complete(); // COMPLETO LA TRANSACCION
         }
         
+         $this->template->refresh_all_cache();
         return true;
     }
 
@@ -149,7 +154,8 @@ class Products_panel_model extends Model {
         $initorder = $this->input->post('initorder');
         $rows = json_decode($this->input->post('rows'));
 
-        $res = $this->db->query('SELECT `order` FROM '.TBL_PRODUCTS.' WHERE products_id='.$initorder)->row_array();
+        $this->db->select('order');
+        $res = $this->db->get_where(TBL_PRODUCTS, array('products_id'=>$initorder))->row_array();
         $order = $res['order'];
 
         //print_array($rows, true);
@@ -160,6 +166,7 @@ class Products_panel_model extends Model {
             $order++;
         }
 
+         $this->template->refresh_all_cache();
         return true;
     }
 

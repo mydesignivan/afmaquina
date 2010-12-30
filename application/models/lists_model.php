@@ -30,7 +30,7 @@ class lists_model extends Model {
     
     public function get_country_name($id){
         $this->db->select('name');
-        $row = $this->db->get_where(TBL_LIST_STATES, array('country_id'=>$id))->row_array();
+        $row = $this->db->get_where(TBL_LIST_COUNTRY, array('country_id'=>$id))->row_array();
         return $row['name'];
     }
 

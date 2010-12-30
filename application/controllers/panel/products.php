@@ -136,8 +136,8 @@ class Products extends MY_Controller {
 
     public function ajax_upload_delete(){
         if( $_SERVER['REQUEST_METHOD']=="POST" ){
-            @unlink($_POST['au_filename_image']);
-            @unlink($_POST['au_filename_thumb']);
+            @unlink($this->input->post('au_filename_image'));
+            @unlink($this->input->post('au_filename_thumb'));
             die("ok");
         }
     }
